@@ -1,13 +1,13 @@
 package ru.gb.controller;
 
+import ru.gb.model.Product;
+import ru.gb.repository.ProductRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.gb.model.Product;
-import ru.gb.repository.ProductRepository;
 
 @Controller
 public class ProductController {
