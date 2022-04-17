@@ -6,26 +6,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.gb.model.Product;
-import ru.gb.repository.ProductRepository;
+import ru.gb.entity.*;
+import ru.gb.dao.*;
 
 @Controller
 public class ProductController {
-    private ProductRepository productRepository;
+    private EntityManagerProductDao productManager;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(EntityManagerProductDao productManager) {
+        this.productManager = productManager;
     }
+
+//    public ProductController() {
+//        this.productManager = new EntityManagerProductDao();
+//    }
+
 
     @GetMapping("/products")
     public String showProductsPage(Model model) {
-        model.addAttribute("products", productRepository.getAllProducts());
+        model.addAttribute("products", productManager.findAll());
         return "products_page";
     }
 
     @GetMapping("products/{id}")
-    public String showProductPage(Model model, @PathVariable Integer id) {
-        Product product = productRepository.findById(id);
+    public String showProductPage(Model model, @PathVariable Long id) {
+        Product product = productManager.findById(id);
         model.addAttribute("product", product);
         return "product_info_page";
     }
@@ -39,7 +44,7 @@ public class ProductController {
 
     @RequestMapping(params="products/add", method = RequestMethod.POST)
     public String createProduct(Product product) {
-        productRepository.addProduct(product);
+        productManager.insert(product);
         return "products_page";
         //Cost: <input type="text" th:field="*{cost}"/>
     }
