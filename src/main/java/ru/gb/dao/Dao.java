@@ -1,7 +1,7 @@
 package ru.gb.dao;
 
-import ru.gb.entity.Product;
 
+import ru.gb.entity.Product;
 import java.util.List;
 
 public interface Dao {

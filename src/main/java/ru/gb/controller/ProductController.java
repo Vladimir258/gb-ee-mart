@@ -1,5 +1,6 @@
 package ru.gb.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +12,13 @@ import ru.gb.dao.*;
 
 @Controller
 public class ProductController {
-    private EntityManagerProductDao productManager;
 
-    public ProductController(EntityManagerProductDao productManager) {
+    private Dao productManager;
+
+    @Autowired
+    public void setProductManager(Dao productManager) {
         this.productManager = productManager;
     }
-
-//    public ProductController() {
-//        this.productManager = new EntityManagerProductDao();
-//    }
-
 
     @GetMapping("/products")
     public String showProductsPage(Model model) {

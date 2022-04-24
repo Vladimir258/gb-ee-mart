@@ -66,4 +66,6 @@ public class EntityManagerProductDao implements Dao {
         Product mergeProduct = entityManager.merge(product);
         entityManager.remove(mergeProduct);
     }
+
+
 }

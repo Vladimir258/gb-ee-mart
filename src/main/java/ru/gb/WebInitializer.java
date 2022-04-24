@@ -4,6 +4,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import ru.gb.config.AppConfig;
+import ru.gb.config.JpaConfig;
 
 import javax.servlet.Filter;
 
@@ -22,7 +23,8 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class[] {
-                AppConfig.class
+                AppConfig.class,
+                JpaConfig.class
         };
     }
 

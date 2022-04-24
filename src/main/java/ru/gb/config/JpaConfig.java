@@ -1,6 +1,5 @@
 package ru.gb.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,25 +23,16 @@ import java.util.Properties;
 @ComponentScan("ru.gb")
 @EnableTransactionManagement
 public class JpaConfig {
-    @Value("${driverClassName}")
-    private String driverClassName;
-    @Value("${url}")
-    private String url;
-    @Value("${nick}")
-    private String nick;
-    @Value("${password}")
-    private String password;
-
     @Bean
     public DataSource dataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
 
         try {
-            Class<? extends Driver> driver = (Class<? extends Driver>) Class.forName(driverClassName);
+            Class<? extends Driver> driver = (Class<? extends Driver>) Class.forName("org.postgresql.Driver");
             dataSource.setDriverClass(driver);
-            dataSource.setUrl(url);
-            dataSource.setUsername(nick);
-            dataSource.setPassword(password);
+            dataSource.setUrl("jdbc:postgresql://localhost:5432/gb_shop");
+            dataSource.setUsername("geek");
+            dataSource.setPassword("geek");
             return dataSource;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
