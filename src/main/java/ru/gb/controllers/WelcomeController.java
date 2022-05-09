@@ -1,4 +1,4 @@
-package ru.gb.controller;
+package ru.gb.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

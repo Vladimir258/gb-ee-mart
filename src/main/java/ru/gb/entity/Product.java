@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 @Entity
 @Table(name = "product")
 @NamedQueries({
