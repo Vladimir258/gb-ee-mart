@@ -1,18 +1,8 @@
-
-.idea/compiler.xml
-
-.idea/encodings.xml
+target/
+.idea/
 
 *.class
-
-.idea/uiDesigner.xml
-
-target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
-
 *.lst
-
-target/maven-archiver/pom.properties
-
 *.jar
 
-target/gb-ee-mart.war
+
