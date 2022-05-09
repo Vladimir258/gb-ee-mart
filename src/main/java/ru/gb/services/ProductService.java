@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.entity.Product;
-import ru.gb.repositories.ProductRepository;
+import ru.gb.dao.ProductRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,17 +28,17 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    @Transactional
+    public void changeCost(Long productId, BigDecimal delta) {
+        Product product = productRepository.findById(productId).orElseThrow(RuntimeException::new);
+        product.setCost(product.getCost().add(delta));
+    }
+
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
 
     public void insert(Product product) {
         productRepository.save(product);
-    }
-
-    @Transactional
-    public void cangeCost(Long id, BigDecimal delta) {
-        Product product = productRepository.findById(id).orElseThrow(RuntimeException::new);
-        product.setCost(product.getCost().add(delta));
     }
 }

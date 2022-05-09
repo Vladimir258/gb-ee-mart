@@ -1,19 +1,16 @@
 package ru.gb.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import ru.gb.entity.*;
+import org.springframework.web.bind.annotation.*;
+import ru.gb.entity.Product;
 import ru.gb.services.ProductService;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 
-@Controller
+@RestController
 public class ProductController {
 
     private ProductService productService;
@@ -24,30 +21,37 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public String showProductsPage(Model model) {
-        model.addAttribute("products", productService.findAll());
-        return "products_page";
+    public List<Product> showProductsPage() {
+        return productService.findAll();
     }
 
+    @GetMapping("/products/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+        productService.deleteById(id);
+    }
+
+    @GetMapping("/products/change_cost")
+    public void changeCost(@RequestParam Long productId, @RequestParam BigDecimal delta) {
+        productService.changeCost(productId, delta);
+    }
+
+// TODO Добавление продукта
+
+//    @RequestMapping(params="products/add", method = RequestMethod.GET)
+//    public String getAddProductPage() {
+//        return "product_add_page";
+//    }
+//
+//    @RequestMapping(params="products/add", method = RequestMethod.POST)
+//    public void createProduct(Product product) {
+//        productService.insert(product);
+//    }
+
+
+    // TODO Сделать на странице shop
     @GetMapping("products/{id}")
-    public String showProductPage(Model model, @PathVariable Long id) {
+    public Optional<Product> showProductPage(@PathVariable Long id) {
         Optional<Product> product = productService.findById(id);
-        model.addAttribute("product", product);
-        return "product_info_page";
+        return product;
     }
-
-
-    @RequestMapping(params="products/add", method = RequestMethod.GET)
-    public String getAddProductPage(Model model, Product product) {
-        model.addAttribute("product", product);
-        return "product_add_page";
-    }
-
-    @RequestMapping(params="products/add", method = RequestMethod.POST)
-    public String createProduct(Product product) {
-        productService.insert(product);
-        return "products_page";
-        //Cost: <input type="text" th:field="*{cost}"/>
-    }
-
 }
